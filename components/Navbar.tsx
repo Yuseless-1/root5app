@@ -23,13 +23,18 @@ const Navbar: React.FC<NavbarProps> = ({ wallet, connectWallet, disconnectWallet
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 glass border-b border-[var(--color-border-light)] px-4 py-3 md:px-8">
+    <nav className="sticky top-0 z-50 glass border-b border-white/5 px-4 py-3 md:px-8">
       <div className="container mx-auto max-w-7xl flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[var(--color-primary-purple)] to-[var(--color-secondary-blue)] flex items-center justify-center font-bold text-lg">
-            R5
-          </div>
-          <span className="hidden md:block font-bold text-xl tracking-tight">ROOT5 <span className="text-[var(--color-primary-purple)]">DAO</span></span>
+        
+        <Link to="/" className="flex items-center gap-3 group">
+          <img
+            src="https://root5dao.com/layers/logo.jpg"
+            alt="ROOT5 DAO Logo"
+            className="w-8 h-8 rounded-lg object-cover group-hover:ring-2 ring-green-500/50 transition-all"
+          />
+          <span className="hidden md:block font-bold text-xl tracking-tight">
+            ROOT5 <span className="text-green-400">DAO</span>
+          </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
@@ -37,8 +42,8 @@ const Navbar: React.FC<NavbarProps> = ({ wallet, connectWallet, disconnectWallet
             <Link
               key={link.path}
               to={link.path}
-              className={`text-sm font-medium transition-colors hover:text-[var(--color-primary-purple)] ${
-                isActive(link.path) ? 'text-[var(--color-primary-purple)]' : 'text-[var(--color-text-white-60)]'
+              className={`text-sm font-medium transition-colors hover:text-green-400 ${
+                isActive(link.path) ? 'text-green-400' : 'text-white/60'
               }`}
             >
               {link.name}
@@ -50,26 +55,26 @@ const Navbar: React.FC<NavbarProps> = ({ wallet, connectWallet, disconnectWallet
           {!wallet.isConnected ? (
             <button
               onClick={connectWallet}
-              className="bg-purple-600 hover:bg-purple-700 text-[var(--color-text-white-full)] px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-purple-600/20 active:scale-95"
+              className="bg-green-500 hover:bg-green-600 text-black px-5 py-2 rounded-lg text-sm font-bold transition-all shadow-lg shadow-green-500/20 active:scale-95"
             >
               Connect Wallet
             </button>
           ) : (
             <div className="flex items-center gap-2">
               <div className="hidden lg:flex flex-col items-end mr-2">
-                <span className="text-[10px] text-[var(--color-text-white-40)] font-mono uppercase tracking-widest">
+                <span className="text-[10px] text-white/40 font-mono uppercase tracking-widest">
                   {wallet.isSigned ? 'Authenticated' : 'Connected'}
                 </span>
-                <span className="text-xs font-mono text-[var(--color-primary-purple)]">
+                <span className="text-xs font-mono text-green-400">
                   {wallet.address?.slice(0, 6)}...{wallet.address?.slice(-4)}
                 </span>
               </div>
               <button
                 onClick={wallet.isSigned ? disconnectWallet : signLogin}
-                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all active:scale-95 ${
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all active:scale-95 ${
                   wallet.isSigned 
-                  ? 'border border-[var(--color-border-light)] hover:bg-[var(--color-border-light)] text-[var(--color-text-white-80)]' 
-                  : 'bg-blue-600 hover:bg-blue-700 text-[var(--color-text-white-full)]'
+                  ? 'border border-white/10 hover:bg-white/5 text-white/80' 
+                  : 'bg-green-500 hover:bg-green-600 text-black'
                 }`}
               >
                 {wallet.isSigned ? 'Log Out' : 'Sign Login'}

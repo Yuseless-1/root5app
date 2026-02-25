@@ -18,43 +18,27 @@ const App: React.FC = () => {
 
   const connectWallet = async () => {
     // Simulate wallet connection logic
-    // In a real app: check if window.ethereum exists, request accounts, handle errors.
-    const mockAddress = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'; // Example Ethereum address
-    // For a Solana DApp, you would use a Solana wallet adapter (e.g., @solana/wallet-adapter-react)
-    // and fetch a Solana public key.
-    console.log("Connecting wallet...");
-    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async
+    const mockAddress = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e';
     setWallet({
-      address: mockAddress, // This would be a Solana public key for a Solana DApp
+      address: mockAddress,
       isConnected: true,
       isSigned: false,
     });
-    console.log("Wallet connected:", mockAddress);
   };
 
   const signLogin = async () => {
-    // Simulate signing a message for Supabase/Backend login
-    if (!wallet.address) {
-      alert("Please connect your wallet first.");
-      return;
-    }
-    
-    console.log("Requesting signature for login...");
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate async signature
-    
+    if (!wallet.address) return;
     setWallet(prev => ({ ...prev, isSigned: true }));
     alert('Logged in successfully via Web3 Signature');
-    console.log("Wallet signed in.");
   };
 
   const disconnectWallet = () => {
     setWallet({ address: null, isConnected: false, isSigned: false });
-    console.log("Wallet disconnected.");
   };
 
   return (
     <HashRouter>
-      <div className="min-h-screen flex flex-col bg-[var(--color-background)] text-[var(--color-text-white-full)] selection:bg-[var(--color-primary-purple)]/30">
+      <div className="min-h-screen flex flex-col bg-[#030303] text-white selection:bg-green-500/30">
         <Navbar 
           wallet={wallet} 
           connectWallet={connectWallet} 
@@ -67,20 +51,20 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route 
               path="/proposals" 
-              element={<Proposals wallet={wallet} signLogin={signLogin} connectWallet={connectWallet} />} 
+              element={<Proposals wallet={wallet} signLogin={signLogin} />} 
             />
             <Route 
               path="/voting/:id" 
-              element={<Voting wallet={wallet} signLogin={signLogin} connectWallet={connectWallet} />} 
+              element={<Voting wallet={wallet} signLogin={signLogin} />} 
             />
             <Route path="/treasury" element={<Treasury />} />
             <Route path="/updates" element={<Updates />} />
           </Routes>
         </main>
 
-        <footer className="border-t border-[var(--color-border-light)] py-8 mt-auto">
-          <div className="container mx-auto px-4 text-center text-[var(--color-text-white-40)] text-sm">
-            &copy; 2024 Root5 DAO Governance Ecosystem. All rights reserved.
+        <footer className="border-t border-white/5 py-8 mt-auto">
+          <div className="container mx-auto px-4 text-center text-white/40 text-sm">
+            &copy; 2024 Root5 DAO Governance Ecosystem. Powered by Modular Liquidity.
           </div>
         </footer>
       </div>
